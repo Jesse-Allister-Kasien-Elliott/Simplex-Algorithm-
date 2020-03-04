@@ -1,0 +1,12 @@
+The Simplex Algorithm, implemented in MATLAB:
+
+The input is an m × n matrix A, an m × 1 vector b and an n × 1 vector c, and an
+initial feasible basis BAS: simplex(c,A,b,BAS).
+
+Above, c, A, b are as described and BAS is an m-dimensional vector of indices
+representing the basic variables. The program returns a tuple [ stat, sol ],
+where stat = 0 if the problem has an optimal solution, and stat = 1 if the
+problem is unbounded. If stat = 0, then sol will contain the n × 1 vector
+corresponding to the optimal solution. If stat = 1, then sol will contain the
+n × 1 vector that shows, together with the initial BFS that the problem is
+unbounded.  
