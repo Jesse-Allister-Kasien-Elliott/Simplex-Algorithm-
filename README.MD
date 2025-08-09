@@ -1,40 +1,28 @@
-# Simplex Algorithm (MATLAB and Python)
+# Learning Dantzig’s Pivot Rule with a Neural Network
 
-This project provides implementations of the Simplex algorithm for solving linear programs in standard form:
+This project is an exercise in building a full data pipeline around the Simplex algorithm. We implement Dantzig’s pivot rule, generate supervised data from random linear programs (LPs), train a small neural network to predict the entering variable, and evaluate the learned rule against Dantzig.
 
-  maximize cᵗx  
-  subject to Ax = b, x ≥ 0
+## Overview
+We solve LPs in the form: maximize cᵀx subject to Ax ≤ b, x ≥ 0. The focus is the pivot rule (entering-variable choice). Dantzig’s rule picks the largest reduced cost; the model learns to imitate this decision from data.
 
-## Input:
-- A: m × n matrix
-- b: m × 1 vector
-- c: n × 1 vector
-- BAS: m × 1 vector of indices representing a feasible basis (1-based in MATLAB, 0-based in Python)
+## What’s Included
+- Script 1 — Simplex (baseline reference).
+- Script 2 — Data generation: run Simplex with Dantzig; log per-pivot (X = reduced costs, y = chosen column) → pivot_data_big.npz.
+- Script 3 — Training: PyTorch MLP, feature normalization, cross-entropy on pivot labels → pivot_model.pt, norm_stats.npz.
+- Script 4 — Evaluation: compare NN vs Dantzig on fresh LPs; reports mean pivots, 95% CI, min/max, and win/tie counts.
+- Script 5 — Visualization: scatter (NN vs Dantzig), histogram of (NN−Dantzig) differences, ECDF; saves PNGs.
 
-## Output:
-Both implementations return [stat, sol]:
-- stat = 0: optimal solution found → sol is the optimal x
-- stat = 1: problem is unbounded → sol is an unbounded direction
+## Concepts & Tools
+Simplex • Dantzig’s rule • supervised learning • PyTorch (MLP) • NumPy (tableau + data) • Matplotlib (plots) • reproducibility via fixed RNG seeds • cached results (.npz).
 
-## Files:
-- `simplex.m`: MATLAB implementation
-- `text.m`: MATLAB test cases
-- `simplex.py`: Python version, ready for Google Colab
+## How to Run
+1) Generate data: `python script2_generate_data.py`  
+2) Train model: `python script3_train_nn.py`  
+3) Evaluate: `python script4_evaluate.py`  
+4) Visualize: `python script5_plot.py`
 
-## Example (common to both):
-maximize x₁ + 4x₂  
-subject to:  
- x₁ + 2x₂ ≤ 2  
- x₁ + x₂ ≤ 4  
-→ converted to standard form with slack variables
-
-Inputs:
-- c = [1; 4; 0; 0]
-- A = [1 2 1 0; 1 1 0 1]
-- b = [2; 4]
-- BAS = [1; 4] in MATLAB or [0, 3] in Python
-
-## Usage:
-MATLAB:
-```matlab
-[stat, sol] = simplex(c, A, b, BAS);
+## Notes
+- LP size is controlled by m (constraints) and n (variables); larger sizes yield longer pivot paths and clearer differences.  
+- Random Gaussian LPs often make Dantzig hard to beat; expect the NN to be close, not dominant.  
+- For harder/longer runs, bump m,n and filter out trivial cases in Script 2.  
+- This is an educational project intended to demonstrate a clean data → train → evaluate → visualize pipeline around a classic algorithm.
