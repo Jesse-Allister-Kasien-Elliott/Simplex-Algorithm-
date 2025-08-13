@@ -1,9 +1,9 @@
 # Learning Dantzig’s Pivot Rule with a Neural Network
 
-This project is an exercise in building a full data pipeline around the Simplex algorithm. We implement Dantzig’s pivot rule, generate supervised data from random linear programs (LPs), train a small neural network to predict the entering variable, and evaluate the learned rule against Dantzig.
+This project is an exercise in building a data pipeline around the Simplex algorithm. I implement Dantzig’s pivot rule, generate supervised data from random linear programs (LPs), train a small neural network to predict the entering variable, and evaluate the learned rule against Dantzig.
 
 ## Overview
-We solve LPs in the form: maximize cᵀx subject to Ax ≤ b, x ≥ 0. The focus is the pivot rule (entering-variable choice). Dantzig’s rule picks the largest reduced cost; the model learns to imitate this decision from data.
+I solve LPs in the form: maximize cᵀx subject to Ax ≤ b, x ≥ 0. The focus is the pivot rule (entering-variable choice). Dantzig’s rule picks the largest reduced cost; the model learns to imitate this decision from data.
 
 ## What’s Included
 - Script 1 — Simplex (baseline reference).
