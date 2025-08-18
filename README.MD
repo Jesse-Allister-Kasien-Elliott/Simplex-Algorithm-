@@ -23,6 +23,6 @@ Simplex • Dantzig’s rule • supervised learning • PyTorch (MLP) • NumPy
 
 ## Notes
 - LP size is controlled by m (constraints) and n (variables); larger sizes yield longer pivot paths and clearer differences.  
-- Random Gaussian LPs often make Dantzig hard to beat; expect the NN to be close, not dominant.  
+- Random Gaussian LPs often make Dantzig hard to beat; expect the NN to be close, not better.  
 - For harder/longer runs, bump m,n and filter out trivial cases in Script 2.  
 - This is an educational project intended to demonstrate a clean data → train → evaluate → visualize pipeline around a classic algorithm.
